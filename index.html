@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CINEMAX — Interactive Movie Discovery</title>
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- ================= NAVIGATION BAR ================= -->
+  <header class="navbar" id="top">
+    <div class="container nav-container">
+      <a href="#home" class="brand-logo" id="logoLink" aria-label="CINEMAX Home">
+        <span class="brand-logo-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+            <line x1="7" y1="2" x2="7" y2="22"></line>
+            <line x1="17" y1="2" x2="17" y2="22"></line>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <line x1="2" y1="7" x2="7" y2="7"></line>
+            <line x1="2" y1="17" x2="7" y2="17"></line>
+            <line x1="17" y1="17" x2="22" y2="17"></line>
+            <line x1="17" y1="7" x2="22" y2="7"></line>
+          </svg>
+        </span>
+        <span>CINE<span class="accent">MAX</span></span>
+      </a>
+
+      <!-- Theme Toggle & Mobile Hamburger Toggle -->
+      <div class="nav-utility-group">
+        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-label="Switch to light mode" title="Toggle theme">
+          <span id="themeIconContainer" aria-hidden="true"></span>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Collapsible Navigation Menu -->
+      <nav class="nav-menu" id="navMenu" aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li>
+            <button type="button" class="nav-link active" id="navHomeBtn">Home</button>
+          </li>
+          <li>
+            <button type="button" class="nav-link" id="navMoviesBtn">Movies</button>
+          </li>
+          <li class="dropdown" id="genreDropdown">
+            <button type="button" class="nav-link dropdown-toggle" id="genreDropdownBtn" aria-expanded="false" aria-haspopup="true">
+              <span>Genres</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="dropdown-menu" id="genreDropdownMenu" role="menu" aria-label="Filter by genre">
+              <!-- Populated dynamically by script.js -->
+            </div>
+          </li>
+          <li>
+            <button type="button" class="nav-link" id="navWatchlistBtn">
+              <span>My Watchlist</span>
+              <span class="watchlist-badge" id="navWatchlistCount">0</span>
+            </button>
+          </li>
+        </ul>
+
+        <div class="nav-actions">
+          <form class="search-form" id="searchForm" role="search">
+            <label for="searchInput" class="sr-only">Search movies by title, genre, or year</label>
+            <input
+              type="search"
+              id="searchInput"
+              class="search-input"
+              placeholder="Search title, genre, year..."
+              autocomplete="off"
+            >
+            <button type="button" class="clear-search-btn" id="clearSearchBtn" aria-label="Clear search query" title="Clear search">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+            <button type="submit" class="search-submit-btn" id="searchSubmitBtn" aria-label="Submit search">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero-section" id="home" aria-label="Featured Movie">
+      <div class="hero-backdrop">
+        <img id="heroBackdropImg" src="" alt="Featured Movie Backdrop">
+      </div>
+      <div class="hero-overlay"></div>
+
+      <div class="container">
+        <div class="hero-content" id="heroContent">
+          <!-- Populated dynamically by script.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MOVIE COLLECTION SECTION ================= -->
+    <section class="section" id="moviesSection" aria-labelledby="collectionHeading">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title" id="collectionHeading">Explore Movies</h2>
+            <p class="section-subtitle">Discover critically acclaimed blockbusters, indie gems, and timeless classics.</p>
+          </div>
+        </div>
+
+        <!-- Genre Filter Pills & Sorting Dropdown -->
+        <div class="controls-bar">
+          <div class="genre-pills" id="genreFilterPills" role="group" aria-label="Movie Genre Filters">
+            <!-- Populated by script.js -->
+          </div>
+
+          <div class="sort-wrapper">
+            <label for="sortSelect" class="sort-label">Sort by:</label>
+            <select id="sortSelect" class="sort-select">
+              <option value="default">Default Order</option>
+              <option value="rating-desc">Highest Rated</option>
+              <option value="rating-asc">Lowest Rated</option>
+              <option value="year-desc">Newest First</option>
+              <option value="year-asc">Oldest First</option>
+              <option value="title-asc">Title A–Z</option>
+              <option value="title-desc">Title Z–A</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Live Result Count & Active Filter Summary -->
+        <div class="collection-status-bar">
+          <p class="movie-count" id="movieCountDisplay" aria-live="polite">Showing <strong>0</strong> movies</p>
+          <div id="activeFilterStatus"></div>
+        </div>
+
+        <!-- Loading Spinner State -->
+        <div class="loading-state" id="loadingState" aria-live="polite">
+          <div class="spinner" aria-hidden="true"></div>
+          <p>Loading CINEMAX collection...</p>
+        </div>
+
+        <!-- Movie Cards Grid -->
+        <div class="movie-grid" id="movieGrid"></div>
+
+        <!-- Empty Search/Filter Result State -->
+        <div class="empty-state" id="emptyCollectionState" hidden>
+          <div class="empty-state-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          <h3>No matching movies found</h3>
+          <p id="emptyCollectionMessage">We couldn't find any movies matching your current search or filter criteria.</p>
+          <button type="button" class="btn btn-secondary" id="resetAllFiltersBtn">Reset All Filters</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MY WATCHLIST SECTION ================= -->
+    <section class="section watchlist-section" id="watchlistSection" aria-labelledby="watchlistHeading">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title" id="watchlistHeading">My Watchlist</h2>
+            <p class="section-subtitle">Movies you have saved to watch later. Automatically stored in your browser.</p>
+          </div>
+        </div>
+
+        <!-- Saved Watchlist Grid -->
+        <div class="movie-grid" id="watchlistGrid"></div>
+
+        <!-- Empty Watchlist State -->
+        <div class="empty-state" id="emptyWatchlistState">
+          <div class="empty-state-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <h3>Your watchlist is currently empty</h3>
+          <p>Click the bookmark icon on any movie card or details window to save films for movie night.</p>
+          <button type="button" class="btn btn-primary" id="discoverMoviesBtn">Discover Movies</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <p><strong>CINEMAX</strong> — Interactive Movie Discovery Platform</p>
+        <p class="footer-note">Built with HTML5, CSS3 &amp; Vanilla JavaScript.</p>
+      </div>
+      <div class="footer-links">
+        <button type="button" id="footerHomeBtn">Home</button>
+        <button type="button" id="footerMoviesBtn">Explore Movies</button>
+        <button type="button" id="footerWatchlistBtn">My Watchlist</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MOVIE DETAILS MODAL ================= -->
+  <div class="modal-overlay" id="movieModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog" id="modalDialog">
+      <button type="button" class="modal-close-btn" id="modalCloseBtn" aria-label="Close details modal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div id="modalBodyContent">
+        <!-- Populated dynamically when a user selects a movie -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TOAST NOTIFICATIONS & BACK TO TOP ============== -->
+
+  <button type="button" class="back-to-top-btn" id="backToTopBtn" aria-label="Scroll back to top" title="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- Main Application Script -->
+  <script src="script.js"></script>
+</body>
+</html>
